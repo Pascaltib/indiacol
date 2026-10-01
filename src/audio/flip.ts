@@ -82,7 +82,7 @@ export function playFlip(direction: 1 | -1 = 1, intensity = 1, count = 1) {
     const now = ac.currentTime + 0.01
     // a turn back is a touch slower and softer, a page settling rather than flying
     const base = direction > 0 ? 1 : 0.95
-    playBuffer(ac, first, now, 0.9 * intensity, base * (0.96 + Math.random() * 0.1))
+    playBuffer(ac, first, now, 0.7 * intensity, base * (0.96 + Math.random() * 0.1))
     // riffle: a few quicker, quieter turns tumbling after the first
     const extra = Math.min(3, count - 1)
     let t = now
@@ -90,7 +90,7 @@ export function playFlip(direction: 1 | -1 = 1, intensity = 1, count = 1) {
       const b = pickFlip()
       if (!b) break
       t += 0.1 + Math.random() * 0.08
-      playBuffer(ac, b, t, 0.55 * intensity * (1 - i * 0.2), 1.12 + Math.random() * 0.15)
+      playBuffer(ac, b, t, 0.42 * intensity * (1 - i * 0.2), 1.12 + Math.random() * 0.15)
     }
   } catch {
     /* audio not available */

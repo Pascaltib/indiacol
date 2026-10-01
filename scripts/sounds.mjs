@@ -35,9 +35,9 @@ const sources = {
   turning: { url: `${COMMONS}/6/6b/Turning_a_page.ogg`, file: 'Turning_a_page.ogg' },
   flute: {
     url: 'https://archive.org/download/dni.ncaa.SPK-52-AC/SPK-52-AC_SIDE_A.mp3',
-    file: 'chaurasia-52a.mp3',
+    file: 'chaurasia-52a-0-70.mp3',
     // only the opening alap of the hour-long cassette is needed
-    range: { ss: 0, t: 45 },
+    range: { ss: 0, t: 70 },
   },
 }
 
@@ -107,16 +107,16 @@ async function buildIntro() {
   const out = join(outDir, 'intro.mp3')
   if (existsSync(out) && !force) return
   const src = await fetchSource('flute')
-  // a quiet tanpura bed, the flute phrase enters ~2 s in, and the passage
-  // dies away naturally where the fade-out sits
+  // a quiet tanpura bed, the flute phrase enters ~2 s in, two more phrases
+  // follow, and the passage settles into a lull where the fade-out ends
   const ss = 14
-  const t = 19
+  const t = 41
   const gain = -24 - meanVolume(src, ss, t)
   const af = [
     'highpass=f=55',
     'lowpass=f=9000', // soften the cassette hiss
     `afade=t=in:d=2.2:curve=esin`,
-    `afade=t=out:st=11:d=8:curve=esin`,
+    `afade=t=out:st=31:d=10:curve=esin`,
     `volume=${gain.toFixed(2)}dB`,
   ].join(',')
   ff(['-ss', String(ss), '-t', String(t), '-i', src, '-af', af, '-ac', '2', '-ar', '44100', '-c:a', 'libmp3lame', '-q:a', '3', out])
