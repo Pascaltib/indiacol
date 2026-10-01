@@ -137,7 +137,10 @@ export function stopOpening(fade = 1.2) {
   }
 }
 
-// the sound toggle silences the drone too
 useBook.subscribe((s, prev) => {
+  // the sound toggle silences the music too
   if (prev.soundOn && !s.soundOn) stopOpening(0.4)
+  // leaving the intro starts the music, whether by button, key or swipe
+  // (all of them are user gestures, so the AudioContext may start)
+  if (prev.mode === 'intro' && s.mode !== 'intro' && s.soundOn) playOpening()
 })

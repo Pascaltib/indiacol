@@ -1,6 +1,5 @@
 import { book, chapters, totalPhotos } from '../content/book'
 import { useBook } from '../store/useBook'
-import { playOpening } from '../audio/flip'
 import { ArrowRight } from './icons'
 
 export function Intro() {
@@ -19,14 +18,7 @@ export function Intro() {
         Cinco años en Nueva Delhi contados en <b>{chapters.length} capítulos</b> y <b>{totalPhotos} fotografías</b>, desde la llegada del contenedor
         hasta el último <i>phir milenge</i>. Las crónicas del blog, encuadernadas.
       </p>
-      <button
-        className="intro__cta"
-        onClick={() => {
-          if (useBook.getState().soundOn) playOpening()
-          openBook()
-        }}
-        disabled={!visible}
-      >
+      <button className="intro__cta" onClick={openBook} disabled={!visible}>
         Abrir el libro
         <ArrowRight />
       </button>

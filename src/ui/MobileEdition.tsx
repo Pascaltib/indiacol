@@ -6,6 +6,8 @@ import { useBook } from '../store/useBook'
 import { ArrowLeft, ArrowRight, BookOpen, Mandala, Ornament, SoundOff, SoundOn } from './icons'
 import './mobile.css'
 
+const SITE = 'indiacol.vercel.app'
+
 /**
  * The phone edition. The floating 3D book is unreadable and heavy on a small
  * screen, so phones get a quiet DOM version: a cover with the dedication and a
@@ -76,18 +78,21 @@ export function MobileEdition() {
             </div>
           </div>
 
+          <aside className="mcover__notice">
+            <BookOpen />
+            <div>
+              <strong>Mejor en una pantalla grande</strong>
+              <p>
+                En el móvil solo verás los textos y las fotos, no el libro. Para hojearlo de verdad, entra en <b>{SITE}</b> desde un
+                portátil o una tableta.
+              </p>
+            </div>
+          </aside>
+
           <button className="mcover__cta" onClick={open}>
-            Leer los capítulos
+            Leer aquí los capítulos
             <ArrowRight />
           </button>
-
-          <p className="mcover__note">
-            <BookOpen />
-            <span>
-              La edición en tres dimensiones —el libro que flota y pasa sus páginas— está pensada para una pantalla grande. Ábrela en un
-              portátil o una tableta para hojearla; aquí puedes leer todos los capítulos, con sus fotos, vídeos y cartas.
-            </span>
-          </p>
         </section>
       ) : (
         <section className="mindex">
