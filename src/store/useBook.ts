@@ -16,8 +16,12 @@ export interface ReaderOrigin {
   h: number
 }
 
-/** Phones get the DOM reader; everything else reads in 3D. */
-export const isPhone = () => typeof window !== 'undefined' && (window.innerWidth < 720 || (window.innerWidth < 1024 && window.matchMedia('(pointer: coarse)').matches && window.innerHeight > window.innerWidth))
+/**
+ * Phones get the DOM edition (cover → índice → reader) instead of the 3D book,
+ * which is unreadable and heavy on a small screen. Judged by the shorter side
+ * so rotating the phone doesn't flip editions; tablets and up read in 3D.
+ */
+export const isPhone = () => typeof window !== 'undefined' && Math.min(window.innerWidth, window.innerHeight) < 600
 
 interface BookState {
   mode: Mode

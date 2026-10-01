@@ -1,7 +1,7 @@
 import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { book, chapters, formatDate, photoUrl, videoPosterUrl, videoUrl } from '../content/book'
 import type { Block, Chapter } from '../content/types'
-import { useBook } from '../store/useBook'
+import { isPhone, useBook } from '../store/useBook'
 import { ArrowLeft, ArrowRight, Close, Mandala, Ornament } from './icons'
 
 function Figure({ block, index }: { block: Extract<Block, { type: 'image' }>; index: number }) {
@@ -142,7 +142,7 @@ export function Reader() {
         <div className="reader__bar">
           <button onClick={close}>
             <Close /> <span className="full">Volver al libro</span>
-            <span className="short">Volver</span>
+            <span className="short">{isPhone() ? 'Índice' : 'Volver'}</span>
           </button>
           <span className="reader__meta">{ch ? `Capítulo ${ch.number} · ${formatDate(ch.date, 'short')}` : ''}</span>
           <span className="reader__count">{ch ? `${ch.imageCount} fotos` : ''}</span>
@@ -197,7 +197,7 @@ export function Reader() {
                 ) : (
                   <button className="next" onClick={close}>
                     <small>Fin</small>
-                    <span>Volver al libro</span>
+                    <span>{isPhone() ? 'Volver al índice' : 'Volver al libro'}</span>
                   </button>
                 )}
               </nav>
